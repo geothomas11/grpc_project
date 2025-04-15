@@ -8,25 +8,25 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type LoginRequestBody struct {
+type RegisterRequestBody struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
 }
 
-func Login(ctx *gin.Context, c pb.AuthServicePClient) {
-	b := LoginRequestBody{}
-	if err := ctx.BindJSON(&b); err != nil {
+func Register(ctx *gin.Context, c pb.AuthServicePClient) {
+	body := RegisterRequestBody{}
+	if err := ctx.BindJSON(&body); err != nil {
 		ctx.AbortWithError(http.StatusBadRequest, err)
 		return
 	}
-	res, err := c.Login(context.Background(), &pb.LoginRequest{
-		Email:    b.Email,
-		Password: b.Password,
+	res, err := c.Register(context.Background(), &pb.RegisterRequest{
+		Email:    body.Email,
+		Password: body.Password,
 	})
 	if err != nil {
 		ctx.AbortWithError(http.StatusBadGateway, err)
 		return
 	}
-	ctx.JSON(http.StatusCreated, &res)
+	ctx.JSON(int(res.Status), &res)
 
 }
