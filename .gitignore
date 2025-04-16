@@ -1,0 +1,2 @@
+go-grpc-auth-svc/pk/config/envs/dev.env
+go-grpc-api-gateway/pkg/config/envs/dev.env
