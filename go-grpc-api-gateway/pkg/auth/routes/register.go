@@ -11,6 +11,7 @@ import (
 type RegisterRequestBody struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
+	
 }
 
 func Register(ctx *gin.Context, c pb.AuthServicePClient) {
