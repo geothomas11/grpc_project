@@ -6,6 +6,7 @@ import (
 	"github.com/geothomas11/go-grpc-api-gateway/pkg/auth/pb"
 	"github.com/geothomas11/go-grpc-api-gateway/pkg/config"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 )
 
 type ServiceClient struct {
@@ -13,7 +14,10 @@ type ServiceClient struct {
 }
 
 func InitServicesClient(c *config.Config) pb.AuthServicePClient {
-	cc, err := grpc.Dial(c.AuthSvcUrl, grpc.WithInsecure())
+	cc, err := grpc.Dial(
+		c.ProductSvcUrl,
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
+	)
 	if err != nil {
 		fmt.Println("coudnot connect:", err)
 	}

@@ -93,7 +93,7 @@ type CreateProductResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Status        int64                  `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
 	Error         string                 `protobuf:"bytes,2,opt,name=error,proto3" json:"error,omitempty"`
-	Price         int64                  `protobuf:"varint,3,opt,name=price,proto3" json:"price,omitempty"`
+	Id            int64                  `protobuf:"varint,3,opt,name=id,proto3" json:"id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -142,9 +142,9 @@ func (x *CreateProductResponse) GetError() string {
 	return ""
 }
 
-func (x *CreateProductResponse) GetPrice() int64 {
+func (x *CreateProductResponse) GetId() int64 {
 	if x != nil {
-		return x.Price
+		return x.Id
 	}
 	return 0
 }
@@ -442,11 +442,11 @@ const file_pkg_product_pb_product_proto_rawDesc = "" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x10\n" +
 	"\x03sku\x18\x02 \x01(\tR\x03sku\x12\x14\n" +
 	"\x05stock\x18\x03 \x01(\x03R\x05stock\x12\x14\n" +
-	"\x05price\x18\x04 \x01(\x03R\x05price\"[\n" +
+	"\x05price\x18\x04 \x01(\x03R\x05price\"U\n" +
 	"\x15CreateProductResponse\x12\x16\n" +
 	"\x06status\x18\x01 \x01(\x03R\x06status\x12\x14\n" +
-	"\x05error\x18\x02 \x01(\tR\x05error\x12\x14\n" +
-	"\x05price\x18\x03 \x01(\x03R\x05price\"o\n" +
+	"\x05error\x18\x02 \x01(\tR\x05error\x12\x0e\n" +
+	"\x02id\x18\x03 \x01(\x03R\x02id\"o\n" +
 	"\vFindOneData\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x10\n" +
