@@ -13,7 +13,7 @@ type LoginRequestBody struct {
 	Password string `json:"password"`
 }
 
-func Login(ctx *gin.Context, c pb.AuthServicePClient) {
+func Login(ctx *gin.Context, c pb.AuthServiceClient) {
 	b := LoginRequestBody{}
 	if err := ctx.BindJSON(&b); err != nil {
 		ctx.AbortWithError(http.StatusBadRequest, err)

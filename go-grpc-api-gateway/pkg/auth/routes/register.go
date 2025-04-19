@@ -11,10 +11,9 @@ import (
 type RegisterRequestBody struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
-	
 }
 
-func Register(ctx *gin.Context, c pb.AuthServicePClient) {
+func Register(ctx *gin.Context, c pb.AuthServiceClient) {
 	body := RegisterRequestBody{}
 	if err := ctx.BindJSON(&body); err != nil {
 		ctx.AbortWithError(http.StatusBadRequest, err)

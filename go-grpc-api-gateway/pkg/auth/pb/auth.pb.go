@@ -364,8 +364,8 @@ const file_pkg_auth_pb_auth_proto_rawDesc = "" +
 	"\x10ValidateResponse\x12\x16\n" +
 	"\x06status\x18\x01 \x01(\x03R\x06status\x12\x14\n" +
 	"\x05error\x18\x02 \x01(\tR\x05error\x12\x16\n" +
-	"\x06userId\x18\x03 \x01(\x03R\x06userId2\xbc\x01\n" +
-	"\fAuthServiceP\x12;\n" +
+	"\x06userId\x18\x03 \x01(\x03R\x06userId2\xbb\x01\n" +
+	"\vAuthService\x12;\n" +
 	"\bRegister\x12\x15.auth.RegisterRequest\x1a\x16.auth.RegisterResponse\"\x00\x122\n" +
 	"\x05Login\x12\x12.auth.LoginRequest\x1a\x13.auth.LoginResponse\"\x00\x12;\n" +
 	"\bValidate\x12\x15.auth.ValidateRequest\x1a\x16.auth.ValidateResponse\"\x00B\x0fZ\r./pkg/auth/pbb\x06proto3"
@@ -392,12 +392,12 @@ var file_pkg_auth_pb_auth_proto_goTypes = []any{
 	(*ValidateResponse)(nil), // 5: auth.ValidateResponse
 }
 var file_pkg_auth_pb_auth_proto_depIdxs = []int32{
-	0, // 0: auth.AuthServiceP.Register:input_type -> auth.RegisterRequest
-	2, // 1: auth.AuthServiceP.Login:input_type -> auth.LoginRequest
-	4, // 2: auth.AuthServiceP.Validate:input_type -> auth.ValidateRequest
-	1, // 3: auth.AuthServiceP.Register:output_type -> auth.RegisterResponse
-	3, // 4: auth.AuthServiceP.Login:output_type -> auth.LoginResponse
-	5, // 5: auth.AuthServiceP.Validate:output_type -> auth.ValidateResponse
+	0, // 0: auth.AuthService.Register:input_type -> auth.RegisterRequest
+	2, // 1: auth.AuthService.Login:input_type -> auth.LoginRequest
+	4, // 2: auth.AuthService.Validate:input_type -> auth.ValidateRequest
+	1, // 3: auth.AuthService.Register:output_type -> auth.RegisterResponse
+	3, // 4: auth.AuthService.Login:output_type -> auth.LoginResponse
+	5, // 5: auth.AuthService.Validate:output_type -> auth.ValidateResponse
 	3, // [3:6] is the sub-list for method output_type
 	0, // [0:3] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name

@@ -17,9 +17,9 @@ func main() {
 	}
 	r := gin.Default()
 
-	authSvc := *auth.RegisterRoutes(r, &c)
+	authSvc := *auth.NewAuthService(r, &c)
 	product.RegisterRoutes(r, &c, &authSvc)
 	order.RegisterRoutes(r, &c, &authSvc)
 
-	r.Run(":" + c.Port)
+	r.Run(":"+c.Port)
 }

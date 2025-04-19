@@ -10,17 +10,17 @@ import (
 )
 
 type ServiceClient struct {
-	Client pb.AuthServicePClient
+	Client pb.AuthServiceClient
 }
 
-func InitServicesClient(c *config.Config) pb.AuthServicePClient {
+func InitServicesClient(c *config.Config) pb.AuthServiceClient {
 	cc, err := grpc.NewClient(
-		c.ProductSvcUrl,
+		c.AuthSvcUrl,
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
 	)
 	if err != nil {
 		fmt.Println("coudnot connect:", err)
 	}
-	return pb.NewAuthServicePClient(cc)
+	return pb.NewAuthServiceClient(cc)
 
 }
