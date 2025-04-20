@@ -16,7 +16,7 @@ import (
 func main() {
 	c, err := config.LoadConfig()
 	if err != nil {
-		log.Fatalf("Failed at config", err)
+		log.Fatalln("failed at config", err)
 	}
 	dbUrl := c.GetDBUrl()
 

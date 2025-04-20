@@ -8,7 +8,7 @@ import (
 
 func NewAuthService(r *gin.Engine, c *config.Config) *ServiceClient {
 	svc := &ServiceClient{
-		Client: InitServicesClient(c),
+		Client: InitServiceClient(c),
 	}
 	routes := r.Group("/auth")
 	routes.POST("/register", svc.Register)

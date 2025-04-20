@@ -15,7 +15,7 @@ type ServiceClient struct {
 
 func InitServiceClient(c *config.Config) pb.ProductServiceClient {
 
-	cc, err := grpc.Dial(
+	cc, err := grpc.NewClient(
 		c.ProductSvcUrl,
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
 	)

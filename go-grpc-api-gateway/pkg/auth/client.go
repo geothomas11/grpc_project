@@ -1,7 +1,7 @@
 package auth
 
 import (
-	"fmt"
+	"log"
 
 	"github.com/geothomas11/go-grpc-api-gateway/pkg/auth/pb"
 	"github.com/geothomas11/go-grpc-api-gateway/pkg/config"
@@ -13,14 +13,11 @@ type ServiceClient struct {
 	Client pb.AuthServiceClient
 }
 
-func InitServicesClient(c *config.Config) pb.AuthServiceClient {
-	cc, err := grpc.NewClient(
-		c.AuthSvcUrl,
-		grpc.WithTransportCredentials(insecure.NewCredentials()),
-	)
+func InitServiceClient(c *config.Config) pb.AuthServiceClient {
+	conn, err := grpc.NewClient(c.AuthSvcUrl, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
-		fmt.Println("coudnot connect:", err)
+		log.Fatalf("couldn't connect to auth service: %v", err)
 	}
-	return pb.NewAuthServiceClient(cc)
 
+	return pb.NewAuthServiceClient(conn)
 }
