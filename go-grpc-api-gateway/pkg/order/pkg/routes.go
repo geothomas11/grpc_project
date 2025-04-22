@@ -3,7 +3,7 @@ package order
 import (
 	"github.com/geothomas11/go-grpc-api-gateway/pkg/auth"
 	"github.com/geothomas11/go-grpc-api-gateway/pkg/config"
-	"github.com/geothomas11/go-grpc-api-gateway/pkg/order/routes"
+	"github.com/geothomas11/go-grpc-api-gateway/pkg/order/pkg/routes"
 	"github.com/gin-gonic/gin"
 )
 

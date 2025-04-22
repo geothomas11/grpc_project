@@ -1,6 +1,7 @@
 package db
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/geothomas11/go-grpc-order-svc/pkg/models"
@@ -12,8 +13,11 @@ type Handler struct {
 	DB *gorm.DB
 }
 
-func Init(url string) Handler {
-	db, err := gorm.Open(postgres.Open(url), &gorm.Config{})
+func Init(dbHost, dbPort, dbUser, dbPassword, dbName string) Handler {
+
+	dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", dbHost, dbPort, dbUser, dbPassword, dbName)
+
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
 	if err != nil {
 		log.Fatalln(err)
@@ -22,5 +26,4 @@ func Init(url string) Handler {
 	db.AutoMigrate(&models.Order{})
 
 	return Handler{db}
-
 }

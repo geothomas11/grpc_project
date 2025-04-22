@@ -5,7 +5,7 @@ import (
 
 	"github.com/geothomas11/go-grpc-api-gateway/pkg/auth"
 	"github.com/geothomas11/go-grpc-api-gateway/pkg/config"
-	"github.com/geothomas11/go-grpc-api-gateway/pkg/order"
+	order "github.com/geothomas11/go-grpc-api-gateway/pkg/order/pkg"
 	"github.com/geothomas11/go-grpc-api-gateway/pkg/product"
 	"github.com/gin-gonic/gin"
 )
@@ -21,5 +21,5 @@ func main() {
 	product.RegisterRoutes(r, &c, &authSvc)
 	order.RegisterRoutes(r, &c, &authSvc)
 
-	r.Run(":"+c.Port)
+	r.Run(":" + c.Port)
 }

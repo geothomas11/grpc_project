@@ -2,6 +2,7 @@ package auth
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"strings"
 
@@ -9,36 +10,48 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type AuthMiddlwareConfig struct {
+type AuthMiddlewareConfig struct {
 	svc *ServiceClient
 }
 
-func InitAuthMiddleware(svc *ServiceClient) AuthMiddlwareConfig {
-	return AuthMiddlwareConfig{svc}
+func InitAuthMiddleware(svc *ServiceClient) AuthMiddlewareConfig {
+	return AuthMiddlewareConfig{svc}
 
 }
 
-func (c *AuthMiddlwareConfig) AuthRequired(ctx *gin.Context) {
-	authorization := ctx.Request.Header.Get("authorization")
-	if authorization == "" {
+func (c *AuthMiddlewareConfig) AuthRequired(ctx *gin.Context) {
+	authorization := ctx.Request.Header.Get("Authorization")
 
-		ctx.AbortWithStatus(http.StatusUnauthorized)
+	if authorization == "" {
+		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "missing authorization"})
 		return
 	}
-	token := strings.Split(authorization, "Bearer")
+
+	token := strings.Split(authorization, "Bearer ")
+
 	if len(token) < 2 {
-		ctx.AbortWithStatus(http.StatusUnauthorized)
+		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "missing authorization"})
 		return
 	}
+
 	res, err := c.svc.Client.Validate(context.Background(), &pb.ValidateRequest{
 		Token: token[1],
 	})
-	if err != nil || res.Status != http.StatusOK {
 
-		ctx.AbortWithStatus(http.StatusUnauthorized)
+	if err != nil || res.Status != http.StatusOK {
+		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "invalid authorization token"})
 		return
 	}
-	ctx.Set("userId", res.UserId)
-	ctx.Next()
 
+	ctx.Set("userId", res.UserId)
+
+	if res.Role == "admin" {
+		ctx.Set("userRole", "admin")
+	} else if res.Role == "user" {
+		ctx.Set("userRole", "user")
+	}
+
+	fmt.Println("User role:", ctx.GetString("userRole"))
+
+	ctx.Next()
 }

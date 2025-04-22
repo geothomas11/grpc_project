@@ -84,7 +84,7 @@ func (x *CreateOrderRequest) GetUserId() int64 {
 type CreateOrderResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Status        int64                  `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
-	Error         int64                  `protobuf:"varint,2,opt,name=error,proto3" json:"error,omitempty"`
+	Error         string                 `protobuf:"bytes,2,opt,name=error,proto3" json:"error,omitempty"`
 	Id            int64                  `protobuf:"varint,3,opt,name=id,proto3" json:"id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -127,11 +127,11 @@ func (x *CreateOrderResponse) GetStatus() int64 {
 	return 0
 }
 
-func (x *CreateOrderResponse) GetError() int64 {
+func (x *CreateOrderResponse) GetError() string {
 	if x != nil {
 		return x.Error
 	}
-	return 0
+	return ""
 }
 
 func (x *CreateOrderResponse) GetId() int64 {
@@ -152,7 +152,7 @@ const file_pkg_pb_order_proto_rawDesc = "" +
 	"\x06userId\x18\x03 \x01(\x03R\x06userId\"S\n" +
 	"\x13CreateOrderResponse\x12\x16\n" +
 	"\x06status\x18\x01 \x01(\x03R\x06status\x12\x14\n" +
-	"\x05error\x18\x02 \x01(\x03R\x05error\x12\x0e\n" +
+	"\x05error\x18\x02 \x01(\tR\x05error\x12\x0e\n" +
 	"\x02id\x18\x03 \x01(\x03R\x02id2V\n" +
 	"\fOrderService\x12F\n" +
 	"\vCreateOrder\x12\x19.order.CreateOrderRequest\x1a\x1a.order.CreateOrderResponse\"\x00B\n" +

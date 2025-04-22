@@ -240,6 +240,7 @@ func (x *LoginResponse) GetToken() string {
 type ValidateRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Token         string                 `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	Role          string                 `protobuf:"bytes,2,opt,name=role,proto3" json:"role,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -281,11 +282,19 @@ func (x *ValidateRequest) GetToken() string {
 	return ""
 }
 
+func (x *ValidateRequest) GetRole() string {
+	if x != nil {
+		return x.Role
+	}
+	return ""
+}
+
 type ValidateResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Status        int64                  `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
 	Error         string                 `protobuf:"bytes,2,opt,name=error,proto3" json:"error,omitempty"`
 	UserId        int64                  `protobuf:"varint,3,opt,name=userId,proto3" json:"userId,omitempty"`
+	Role          string                 `protobuf:"bytes,4,opt,name=role,proto3" json:"role,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -341,6 +350,125 @@ func (x *ValidateResponse) GetUserId() int64 {
 	return 0
 }
 
+func (x *ValidateResponse) GetRole() string {
+	if x != nil {
+		return x.Role
+	}
+	return ""
+}
+
+type AdminLoginRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Email         string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
+	Password      string                 `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AdminLoginRequest) Reset() {
+	*x = AdminLoginRequest{}
+	mi := &file_pkg_auth_pb_auth_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AdminLoginRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AdminLoginRequest) ProtoMessage() {}
+
+func (x *AdminLoginRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_auth_pb_auth_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AdminLoginRequest.ProtoReflect.Descriptor instead.
+func (*AdminLoginRequest) Descriptor() ([]byte, []int) {
+	return file_pkg_auth_pb_auth_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *AdminLoginRequest) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
+func (x *AdminLoginRequest) GetPassword() string {
+	if x != nil {
+		return x.Password
+	}
+	return ""
+}
+
+type AdminLoginResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Status        int64                  `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
+	Error         string                 `protobuf:"bytes,2,opt,name=error,proto3" json:"error,omitempty"`
+	Token         string                 `protobuf:"bytes,3,opt,name=token,proto3" json:"token,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AdminLoginResponse) Reset() {
+	*x = AdminLoginResponse{}
+	mi := &file_pkg_auth_pb_auth_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AdminLoginResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AdminLoginResponse) ProtoMessage() {}
+
+func (x *AdminLoginResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_auth_pb_auth_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AdminLoginResponse.ProtoReflect.Descriptor instead.
+func (*AdminLoginResponse) Descriptor() ([]byte, []int) {
+	return file_pkg_auth_pb_auth_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *AdminLoginResponse) GetStatus() int64 {
+	if x != nil {
+		return x.Status
+	}
+	return 0
+}
+
+func (x *AdminLoginResponse) GetError() string {
+	if x != nil {
+		return x.Error
+	}
+	return ""
+}
+
+func (x *AdminLoginResponse) GetToken() string {
+	if x != nil {
+		return x.Token
+	}
+	return ""
+}
+
 var File_pkg_auth_pb_auth_proto protoreflect.FileDescriptor
 
 const file_pkg_auth_pb_auth_proto_rawDesc = "" +
@@ -358,17 +486,28 @@ const file_pkg_auth_pb_auth_proto_rawDesc = "" +
 	"\rLoginResponse\x12\x16\n" +
 	"\x06status\x18\x01 \x01(\x03R\x06status\x12\x14\n" +
 	"\x05error\x18\x02 \x01(\tR\x05error\x12\x14\n" +
-	"\x05token\x18\x03 \x01(\tR\x05token\"'\n" +
+	"\x05token\x18\x03 \x01(\tR\x05token\";\n" +
 	"\x0fValidateRequest\x12\x14\n" +
-	"\x05token\x18\x01 \x01(\tR\x05token\"X\n" +
+	"\x05token\x18\x01 \x01(\tR\x05token\x12\x12\n" +
+	"\x04role\x18\x02 \x01(\tR\x04role\"l\n" +
 	"\x10ValidateResponse\x12\x16\n" +
 	"\x06status\x18\x01 \x01(\x03R\x06status\x12\x14\n" +
 	"\x05error\x18\x02 \x01(\tR\x05error\x12\x16\n" +
-	"\x06userId\x18\x03 \x01(\x03R\x06userId2\xbb\x01\n" +
+	"\x06userId\x18\x03 \x01(\x03R\x06userId\x12\x12\n" +
+	"\x04role\x18\x04 \x01(\tR\x04role\"E\n" +
+	"\x11AdminLoginRequest\x12\x14\n" +
+	"\x05email\x18\x01 \x01(\tR\x05email\x12\x1a\n" +
+	"\bpassword\x18\x02 \x01(\tR\bpassword\"X\n" +
+	"\x12AdminLoginResponse\x12\x16\n" +
+	"\x06status\x18\x01 \x01(\x03R\x06status\x12\x14\n" +
+	"\x05error\x18\x02 \x01(\tR\x05error\x12\x14\n" +
+	"\x05token\x18\x03 \x01(\tR\x05token2\xfe\x01\n" +
 	"\vAuthService\x12;\n" +
 	"\bRegister\x12\x15.auth.RegisterRequest\x1a\x16.auth.RegisterResponse\"\x00\x122\n" +
 	"\x05Login\x12\x12.auth.LoginRequest\x1a\x13.auth.LoginResponse\"\x00\x12;\n" +
-	"\bValidate\x12\x15.auth.ValidateRequest\x1a\x16.auth.ValidateResponse\"\x00B\x0fZ\r./pkg/auth/pbb\x06proto3"
+	"\bValidate\x12\x15.auth.ValidateRequest\x1a\x16.auth.ValidateResponse\"\x00\x12A\n" +
+	"\n" +
+	"AdminLogin\x12\x17.auth.AdminLoginRequest\x1a\x18.auth.AdminLoginResponse\"\x00B\x0fZ\r./pkg/auth/pbb\x06proto3"
 
 var (
 	file_pkg_auth_pb_auth_proto_rawDescOnce sync.Once
@@ -382,24 +521,28 @@ func file_pkg_auth_pb_auth_proto_rawDescGZIP() []byte {
 	return file_pkg_auth_pb_auth_proto_rawDescData
 }
 
-var file_pkg_auth_pb_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_pkg_auth_pb_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_pkg_auth_pb_auth_proto_goTypes = []any{
-	(*RegisterRequest)(nil),  // 0: auth.RegisterRequest
-	(*RegisterResponse)(nil), // 1: auth.RegisterResponse
-	(*LoginRequest)(nil),     // 2: auth.LoginRequest
-	(*LoginResponse)(nil),    // 3: auth.LoginResponse
-	(*ValidateRequest)(nil),  // 4: auth.ValidateRequest
-	(*ValidateResponse)(nil), // 5: auth.ValidateResponse
+	(*RegisterRequest)(nil),    // 0: auth.RegisterRequest
+	(*RegisterResponse)(nil),   // 1: auth.RegisterResponse
+	(*LoginRequest)(nil),       // 2: auth.LoginRequest
+	(*LoginResponse)(nil),      // 3: auth.LoginResponse
+	(*ValidateRequest)(nil),    // 4: auth.ValidateRequest
+	(*ValidateResponse)(nil),   // 5: auth.ValidateResponse
+	(*AdminLoginRequest)(nil),  // 6: auth.AdminLoginRequest
+	(*AdminLoginResponse)(nil), // 7: auth.AdminLoginResponse
 }
 var file_pkg_auth_pb_auth_proto_depIdxs = []int32{
 	0, // 0: auth.AuthService.Register:input_type -> auth.RegisterRequest
 	2, // 1: auth.AuthService.Login:input_type -> auth.LoginRequest
 	4, // 2: auth.AuthService.Validate:input_type -> auth.ValidateRequest
-	1, // 3: auth.AuthService.Register:output_type -> auth.RegisterResponse
-	3, // 4: auth.AuthService.Login:output_type -> auth.LoginResponse
-	5, // 5: auth.AuthService.Validate:output_type -> auth.ValidateResponse
-	3, // [3:6] is the sub-list for method output_type
-	0, // [0:3] is the sub-list for method input_type
+	6, // 3: auth.AuthService.AdminLogin:input_type -> auth.AdminLoginRequest
+	1, // 4: auth.AuthService.Register:output_type -> auth.RegisterResponse
+	3, // 5: auth.AuthService.Login:output_type -> auth.LoginResponse
+	5, // 6: auth.AuthService.Validate:output_type -> auth.ValidateResponse
+	7, // 7: auth.AuthService.AdminLogin:output_type -> auth.AdminLoginResponse
+	4, // [4:8] is the sub-list for method output_type
+	0, // [0:4] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -416,7 +559,7 @@ func file_pkg_auth_pb_auth_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_pkg_auth_pb_auth_proto_rawDesc), len(file_pkg_auth_pb_auth_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
