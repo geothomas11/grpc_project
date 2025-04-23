@@ -15,14 +15,17 @@ type RegisterRequestBody struct {
 }
 
 func Register(ctx *gin.Context, c pb.AuthServiceClient) {
-	body := RegisterRequestBody{}
-	if err := ctx.BindJSON(&body); err != nil {
-		ctx.AbortWithError(http.StatusBadRequest, err)
+	email := ctx.Query("email")
+	password := ctx.Query("password")
+
+	if email == "" || password == "" {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Email and password are required"})
 		return
 	}
+
 	res, err := c.Register(context.Background(), &pb.RegisterRequest{
-		Email:    body.Email,
-		Password: body.Password,
+		Email:    email,
+		Password: password,
 	})
 	if err != nil {
 		fmt.Println("err", err)
@@ -30,5 +33,4 @@ func Register(ctx *gin.Context, c pb.AuthServiceClient) {
 		return
 	}
 	ctx.JSON(int(res.Status), &res)
-
 }
