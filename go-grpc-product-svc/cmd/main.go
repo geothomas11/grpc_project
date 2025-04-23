@@ -13,19 +13,16 @@ import (
 )
 
 func main() {
-
 	c, err := config.LoadConfig()
-
 	if err != nil {
 		log.Fatalln("Failed at config", err)
 	}
 
 	h := db.Init(c.DBUrl)
 
-	lis, err := net.Listen("tcp", c.Port)
-
+	lis, err := net.Listen("tcp", ":"+c.Port)
 	if err != nil {
-		log.Fatalln("Failed to listing:", err)
+		log.Fatalln("Failed to listen:", err)
 	}
 
 	fmt.Println("Product Svc on", c.Port)
@@ -35,7 +32,6 @@ func main() {
 	}
 
 	grpcServer := grpc.NewServer()
-
 	pb.RegisterProductServiceServer(grpcServer, &s)
 
 	if err := grpcServer.Serve(lis); err != nil {
