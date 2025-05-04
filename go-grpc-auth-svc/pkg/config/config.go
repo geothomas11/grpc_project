@@ -33,6 +33,8 @@ func LoadConfig() (config Config, err error) {
 	viper.AutomaticEnv()
 
 	err = viper.ReadInConfig()
+	fmt.Println("Using DB password:", config.DBPassword)
+
 	if err != nil {
 		return
 	}

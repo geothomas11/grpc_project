@@ -19,6 +19,6 @@ func Init(url string) Handler {
 	}
 	db.AutoMigrate(&models.User{})
 
-	return Handler{}
+	return Handler{DB: db}
 
 }
