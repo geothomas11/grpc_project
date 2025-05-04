@@ -345,7 +345,7 @@ var File_pkg_pb_auth_proto protoreflect.FileDescriptor
 
 const file_pkg_pb_auth_proto_rawDesc = "" +
 	"\n" +
-	"\x11pkg/pb/auth.proto\"C\n" +
+	"\x11pkg/pb/auth.proto\x12\x04auth\"C\n" +
 	"\x0fRegisterRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email\x12\x1a\n" +
 	"\bpassword\x18\x02 \x01(\tR\bpassword\"@\n" +
@@ -364,11 +364,11 @@ const file_pkg_pb_auth_proto_rawDesc = "" +
 	"\x10ValidateResponse\x12\x16\n" +
 	"\x06status\x18\x01 \x01(\x03R\x06status\x12\x14\n" +
 	"\x05error\x18\x02 \x01(\tR\x05error\x12\x16\n" +
-	"\x06userId\x18\x03 \x01(\x03R\x06userId2\x9d\x01\n" +
-	"\vAuthService\x121\n" +
-	"\bRegister\x12\x10.RegisterRequest\x1a\x11.RegisterResponse\"\x00\x12(\n" +
-	"\x05Login\x12\r.LoginRequest\x1a\x0e.LoginResponse\"\x00\x121\n" +
-	"\bValidate\x12\x10.ValidateRequest\x1a\x11.ValidateResponse\"\x00B\n" +
+	"\x06userId\x18\x03 \x01(\x03R\x06userId2\xbb\x01\n" +
+	"\vAuthService\x12;\n" +
+	"\bRegister\x12\x15.auth.RegisterRequest\x1a\x16.auth.RegisterResponse\"\x00\x122\n" +
+	"\x05Login\x12\x12.auth.LoginRequest\x1a\x13.auth.LoginResponse\"\x00\x12;\n" +
+	"\bValidate\x12\x15.auth.ValidateRequest\x1a\x16.auth.ValidateResponse\"\x00B\n" +
 	"Z\b./pkg/pbb\x06proto3"
 
 var (
@@ -385,20 +385,20 @@ func file_pkg_pb_auth_proto_rawDescGZIP() []byte {
 
 var file_pkg_pb_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_pkg_pb_auth_proto_goTypes = []any{
-	(*RegisterRequest)(nil),  // 0: RegisterRequest
-	(*RegisterResponse)(nil), // 1: RegisterResponse
-	(*LoginRequest)(nil),     // 2: LoginRequest
-	(*LoginResponse)(nil),    // 3: LoginResponse
-	(*ValidateRequest)(nil),  // 4: ValidateRequest
-	(*ValidateResponse)(nil), // 5: ValidateResponse
+	(*RegisterRequest)(nil),  // 0: auth.RegisterRequest
+	(*RegisterResponse)(nil), // 1: auth.RegisterResponse
+	(*LoginRequest)(nil),     // 2: auth.LoginRequest
+	(*LoginResponse)(nil),    // 3: auth.LoginResponse
+	(*ValidateRequest)(nil),  // 4: auth.ValidateRequest
+	(*ValidateResponse)(nil), // 5: auth.ValidateResponse
 }
 var file_pkg_pb_auth_proto_depIdxs = []int32{
-	0, // 0: AuthService.Register:input_type -> RegisterRequest
-	2, // 1: AuthService.Login:input_type -> LoginRequest
-	4, // 2: AuthService.Validate:input_type -> ValidateRequest
-	1, // 3: AuthService.Register:output_type -> RegisterResponse
-	3, // 4: AuthService.Login:output_type -> LoginResponse
-	5, // 5: AuthService.Validate:output_type -> ValidateResponse
+	0, // 0: auth.AuthService.Register:input_type -> auth.RegisterRequest
+	2, // 1: auth.AuthService.Login:input_type -> auth.LoginRequest
+	4, // 2: auth.AuthService.Validate:input_type -> auth.ValidateRequest
+	1, // 3: auth.AuthService.Register:output_type -> auth.RegisterResponse
+	3, // 4: auth.AuthService.Login:output_type -> auth.LoginResponse
+	5, // 5: auth.AuthService.Validate:output_type -> auth.ValidateResponse
 	3, // [3:6] is the sub-list for method output_type
 	0, // [0:3] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name

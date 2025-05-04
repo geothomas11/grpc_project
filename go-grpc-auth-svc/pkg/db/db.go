@@ -17,6 +17,7 @@ func Init(url string) Handler {
 	if err != nil {
 		log.Fatalln(err)
 	}
+
 	db.AutoMigrate(&models.User{})
 
 	return Handler{DB: db}
