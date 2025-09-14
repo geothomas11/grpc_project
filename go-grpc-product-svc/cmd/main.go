@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net"
 
@@ -16,6 +15,7 @@ func main() {
 	c, err := config.LoadConfig()
 	if err != nil {
 		log.Fatalln("Failed at config", err)
+		log.SetFlags(log.LstdFlags | log.Lshortfile) // Adds filename and line number
 	}
 
 	h := db.Init(c.DBUrl)
@@ -25,7 +25,7 @@ func main() {
 		log.Fatalln("Failed to listen:", err)
 	}
 
-	fmt.Println("Product Svc on", c.Port)
+	log.Println("Product Svc on", c.Port)
 
 	s := services.Server{
 		H: h,

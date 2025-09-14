@@ -2,7 +2,8 @@ package auth
 
 import (
 	"context"
-	"fmt"
+	"log"
+
 	"net/http"
 	"strings"
 
@@ -45,13 +46,20 @@ func (c *AuthMiddlewareConfig) AuthRequired(ctx *gin.Context) {
 
 	ctx.Set("userId", res.UserId)
 
-	if res.Role == "admin" {
+	// if res.Role == "admin" {
+	// 	ctx.Set("userRole", "admin")
+	// } else if res.Role == "user" {
+	// 	ctx.Set("userRole", "user")
+	switch res.Role {
+	case "admin":
 		ctx.Set("userRole", "admin")
-	} else if res.Role == "user" {
+	case "user":
 		ctx.Set("userRole", "user")
+	default:
+		ctx.Set("userRole", "guest") // optional fallback
 	}
 
-	fmt.Println("User role:", ctx.GetString("userRole"))
+	log.Println("User role:", ctx.GetString("userRole"))
 
 	ctx.Next()
 }

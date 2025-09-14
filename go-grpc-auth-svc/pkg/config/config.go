@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/spf13/viper"
 )
@@ -33,7 +34,7 @@ func LoadConfig() (config Config, err error) {
 	viper.AutomaticEnv()
 
 	err = viper.ReadInConfig()
-	fmt.Println("Using DB password:", config.DBPassword)
+	log.Println("Using DB password:", config.DBPassword)
 
 	if err != nil {
 		return

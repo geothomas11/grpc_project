@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net"
 
@@ -17,6 +16,7 @@ func main() {
 	c, err := config.LoadConfig()
 	if err != nil {
 		log.Fatalln("failed at config", err)
+		log.SetFlags(log.LstdFlags | log.Lshortfile) // Adds filename and line number
 	}
 	dbUrl := c.GetDBUrl()
 
@@ -32,7 +32,7 @@ func main() {
 	if err != nil {
 		log.Fatalln("Falied to listing:", c.Port)
 	}
-	fmt.Println("Auth svc is on", c.Port)
+	log.Println("Auth svc is on", c.Port)
 	s := services.Server{
 		H:   h,
 		JWT: jwt,

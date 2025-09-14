@@ -2,7 +2,7 @@ package client
 
 import (
 	"context"
-	"fmt"
+	"log"
 
 	"github.com/geothomas11/go-grpc-order-svc/pkg/pb"
 	"google.golang.org/grpc"
@@ -17,7 +17,7 @@ func InitProductServiceClient(url string) ProductServiceClient {
 	cc, err := grpc.NewClient(url, grpc.WithTransportCredentials(insecure.NewCredentials()))
 
 	if err != nil {
-		fmt.Println("could not connect:", err)
+		log.Println("could not connect:", err)
 	}
 
 	c := ProductServiceClient{
@@ -38,6 +38,6 @@ func (C *ProductServiceClient) DecreaseStock(productId int64, orderId int64) (*p
 		Id:      productId,
 		OrderId: orderId,
 	}
-	return C.Client.DecreaseStock(context.Background(),req)
+	return C.Client.DecreaseStock(context.Background(), req)
 
 }

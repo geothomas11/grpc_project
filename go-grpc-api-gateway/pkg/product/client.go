@@ -1,7 +1,7 @@
 package product
 
 import (
-	"fmt"
+	"log"
 
 	"github.com/geothomas11/go-grpc-api-gateway/pkg/config"
 	"github.com/geothomas11/go-grpc-api-gateway/pkg/product/pb"
@@ -20,7 +20,7 @@ func InitServiceClient(c *config.Config) pb.ProductServiceClient {
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
 	)
 	if err != nil {
-		fmt.Println("Could not connect:", err)
+		log.Println("Could not connect:", err)
 	}
 
 	return pb.NewProductServiceClient(cc)

@@ -1,7 +1,7 @@
 package order
 
 import (
-	"fmt"
+	"log"
 
 	"github.com/geothomas11/go-grpc-api-gateway/pkg/config"
 	"github.com/geothomas11/go-grpc-api-gateway/pkg/order/pb"
@@ -19,7 +19,7 @@ func InitServiceClient(c *config.Config) pb.OrderServiceClient {
 		grpc.WithTransportCredentials(insecure.NewCredentials()))
 
 	if err != nil {
-		fmt.Println("Could not connect:", err)
+		log.Println("Could not connect:", err)
 	}
 
 	return pb.NewOrderServiceClient(cc)

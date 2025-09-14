@@ -14,9 +14,9 @@ func main() {
 	c, err := config.LoadConfig()
 	if err != nil {
 		log.Fatalln("Failed at config", err)
+		log.SetFlags(log.LstdFlags | log.Lshortfile) // Adds filename and line number
 	}
 	r := gin.Default()
-
 	authSvc := *auth.NewAuthService(r, &c)
 	product.RegisterRoutes(r, &c, &authSvc)
 	order.RegisterRoutes(r, &c, &authSvc)

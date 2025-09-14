@@ -2,7 +2,8 @@ package routes
 
 import (
 	"context"
-	"fmt"
+	"log"
+
 	"net/http"
 
 	"github.com/geothomas11/go-grpc-api-gateway/pkg/auth/pb"
@@ -15,20 +16,25 @@ type RegisterRequestBody struct {
 }
 
 func Register(ctx *gin.Context, c pb.AuthServiceClient) {
-	email := ctx.Query("email")
-	password := ctx.Query("password")
+	// email := ctx.Query("email")
+	// password := ctx.Query("password")
+	b := RegisterRequestBody{}
+	if err := ctx.BindJSON(&b); err != nil {
+		ctx.AbortWithError(http.StatusBadRequest, err)
+		return
+	}
 
-	if email == "" || password == "" {
+	if b.Email == "" || b.Password == "" {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Email and password are required"})
 		return
 	}
 
 	res, err := c.Register(context.Background(), &pb.RegisterRequest{
-		Email:    email,
-		Password: password,
+		Email:    b.Email,
+		Password: b.Password,
 	})
 	if err != nil {
-		fmt.Println("err", err)
+		log.Println("err", err)
 		ctx.AbortWithError(http.StatusBadGateway, err)
 		return
 	}

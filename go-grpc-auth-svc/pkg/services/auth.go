@@ -2,13 +2,15 @@ package services
 
 import (
 	"context"
-	"fmt"
+	"errors"
+	"log"
 	"net/http"
 
 	"github.com/geothomas11/go-grpc-auth-svc/pkg/db"
 	"github.com/geothomas11/go-grpc-auth-svc/pkg/models"
 	"github.com/geothomas11/go-grpc-auth-svc/pkg/pb"
 	"github.com/geothomas11/go-grpc-auth-svc/pkg/utils"
+	"gorm.io/gorm"
 )
 
 type Server struct {
@@ -17,24 +19,66 @@ type Server struct {
 	pb.UnimplementedAuthServiceServer
 }
 
+// func (s *Server) Register(ctx context.Context, req *pb.RegisterRequest) (*pb.RegisterResponse, error) {
+// 	var user models.User
+
+// 	if result := s.H.DB.Where(&models.User{Email: req.Email}).First(&user); result.Error == nil {
+// 		return &pb.RegisterResponse{
+// 			Status: http.StatusConflict,
+// 			Error:  "E-mail already exists",
+// 		}, nil
+// 	}
+// 	user.Email = req.Email
+// 	user.Password = utils.HashPassword(req.Password)
+
+// 	s.H.DB.Create(&user)
+// 	//user return print
+
+// 	var users []models.User
+// 	s.H.DB.Find(&users)
+// 	log.Println("Users:", users)
+
+//		return &pb.RegisterResponse{
+//			Status: http.StatusCreated,
+//		}, nil
+//	}
 func (s *Server) Register(ctx context.Context, req *pb.RegisterRequest) (*pb.RegisterResponse, error) {
 	var user models.User
 
-	if result := s.H.DB.Where(&models.User{Email: req.Email}).First(&user); result.Error == nil {
+	// Check if the user already exists
+	result := s.H.DB.Where(&models.User{Email: req.Email}).First(&user)
+	if result.Error == nil {
+		// User exists
 		return &pb.RegisterResponse{
 			Status: http.StatusConflict,
 			Error:  "E-mail already exists",
 		}, nil
+	} else if !errors.Is(result.Error, gorm.ErrRecordNotFound) {
+		// Some other DB error
+		return &pb.RegisterResponse{
+			Status: http.StatusInternalServerError,
+			Error:  result.Error.Error(),
+		}, nil
 	}
-	user.Email = req.Email
-	user.Password = utils.HashPassword(req.Password)
 
-	s.H.DB.Create(&user)
-	//user return print
+	// User does not exist, create a new one
+	user = models.User{
+		Email:    req.Email,
+		Password: utils.HashPassword(req.Password),
+		Role:     "user", // Optional: assign default role
+	}
 
+	if err := s.H.DB.Create(&user).Error; err != nil {
+		return &pb.RegisterResponse{
+			Status: http.StatusInternalServerError,
+			Error:  err.Error(),
+		}, nil
+	}
+
+	// Log all users (optional)
 	var users []models.User
 	s.H.DB.Find(&users)
-	fmt.Println("Users:", users)
+	log.Println("Users:", users)
 
 	return &pb.RegisterResponse{
 		Status: http.StatusCreated,

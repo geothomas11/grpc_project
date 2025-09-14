@@ -11,6 +11,7 @@ import (
 type AdminRegisterbody struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
+	Role     string `role:"admin"`
 }
 
 func AdminRegister(ctx *gin.Context, c pb.AuthServiceClient) {
